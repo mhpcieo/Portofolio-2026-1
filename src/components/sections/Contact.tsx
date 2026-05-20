@@ -10,7 +10,7 @@ import { ArrowUpRight, Send, CheckCircle, AlertCircle } from 'lucide-react';
 // 3. Cek email → copy access key yang dikirim
 // 4. Ganti nilai ACCESS_KEY di bawah ini dengan key kamu
 // ─────────────────────────────────────────────────────────────
-const ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
+const ACCESS_KEY = '19da9eaf-ad65-42f3-adf0-84a8fea3cb48';
 
 const LINKS = [
   { label: 'Email',     value: 'muhamadhabilputrawan@gmail.com', href: 'mailto:muhamadhabilputrawan@gmail.com' },
