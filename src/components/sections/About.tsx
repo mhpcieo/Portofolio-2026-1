@@ -1,83 +1,81 @@
 import { motion } from 'framer-motion';
-import { Code, Cpu, Target, Zap } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 
-const ABOUT_CARDS = [
-  {
-    icon: <Code className="w-6 h-6 text-primary" />,
-    title: "Perjalanan Belajar",
-    desc: "Mulai dari dasar-dasar RPL hingga mendalami fullstack development dengan stack modern."
-  },
-  {
-    icon: <Target className="w-6 h-6 text-primary" />,
-    title: "Fokus Teknologi",
-    desc: "Spesialisasi di Flutter untuk mobile dan ekosistem Express.js/Laravel untuk arsitektur backend."
-  },
-  {
-    icon: <Zap className="w-6 h-6 text-primary" />,
-    title: "Cara Kerja",
-    desc: "Mengedepankan clean code, struktur yang modular, dan efisiensi performa aplikasi."
-  },
-  {
-    icon: <Cpu className="w-6 h-6 text-primary" />,
-    title: "Passion",
-    desc: "Membangun produk digital yang tidak hanya fungsional, tetapi juga memberikan user experience terbaik."
-  }
+const FACTS = [
+  { num: '01', title: 'Mobile-first', body: 'Flutter is my main tool. Smooth UIs, clean state management, apps that feel native on both platforms.' },
+  { num: '02', title: 'Backend too', body: 'Laravel for structured PHP work, Express.js when I need something lighter. REST APIs, JWT auth, validation — full stack.' },
+  { num: '03', title: 'Code quality', body: 'I keep things modular and readable. Future-me will thank present-me — and so will anyone else who touches the code.' },
+  { num: '04', title: 'Always building', body: "I learn by doing. If I don't understand something, I build a small thing with it until I do." },
 ];
 
-export const About = () => {
-  return (
-    <section id="about" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeading 
-          title="Developer Profile" 
-          subtitle="Lebih dari sekadar menulis kode, saya fokus pada pemecahan masalah dan membangun arsitektur yang scalable."
-        />
+export const About = () => (
+  <section id="about" className="py-24 relative z-10">
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-start">
 
-        <div className="grid lg:grid-cols-12 gap-12 mt-16 items-center">
-          
-          {/* Left: Text Content Showcase */}
-          <div className="lg:col-span-5 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5 }}
-              className="glass-card p-8 rounded-3xl relative overflow-hidden group"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full transition-all group-hover:scale-110" />
-              <h3 className="text-2xl font-bold mb-4 text-text-main relative z-10">
-                Mobile App Developer.
-              </h3>
-              <p className="text-text-secondary leading-relaxed relative z-10">
-                Sebagai siswa Rekayasa Perangkat Lunak (RPL), saya sangat menyukai dunia pemrograman. Bagi saya, membuat aplikasi bukan sekadar tugas sekolah, tapi cara yang seru untuk memecahkan masalah. Saat ini saya sudah menyelesaikan 3 project, dan saya akan terus belajar, berlatih, serta berkembang menjadi developer yang lebih profesional di masa depan.
-              </p>
+        {/* Left */}
+        <div>
+          <SectionHeading label="01 — About" title="Who I am" />
 
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.38, delay: 0.08 }}
+            className="mt-7 space-y-3.5 text-[13.5px] text-text-secondary leading-[1.8]"
+          >
+            <p>
+              I'm a Software Engineering (RPL) student in Indonesia. I got into programming
+              because I wanted to understand how things work — and stayed because building
+              stuff is genuinely satisfying.
+            </p>
+            <p>
+              My main focus is mobile development with Flutter, but I also spend real time
+              on the backend with Laravel and Express.js. I like when both sides of an app
+              are clean and intentional.
+            </p>
+            <p>
+              Three projects shipped so far. Each one taught me something I didn't expect.
+              Looking for an internship where I can keep learning and actually contribute.
+            </p>
+          </motion.div>
 
-          {/* Right: Bento Grid Features */}
-          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-            {ABOUT_CARDS.map((card, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-card p-6 rounded-2xl hover:bg-white/5 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  {card.icon}
-                </div>
-                <h4 className="text-lg font-bold text-text-main mb-2">{card.title}</h4>
-                <p className="text-sm text-text-secondary leading-relaxed">{card.desc}</p>
-              </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+            viewport={{ once: true }} transition={{ duration: 0.3, delay: 0.2 }}
+            className="mt-7 flex flex-wrap gap-1.5"
+          >
+            {['Flutter', 'Dart', 'Laravel', 'Express.js', 'PostgreSQL', 'MySQL', 'Firebase'].map((t) => (
+              <span key={t}
+                className="mono text-[11px] px-2 py-0.5 border border-border text-text-secondary hover:border-primary/30 hover:text-primary transition-colors duration-100 cursor-default rounded-sm">
+                {t}
+              </span>
             ))}
-          </div>
-
+          </motion.div>
         </div>
+
+        {/* Right — numbered list */}
+        <motion.div
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.38, delay: 0.1 }}
+          className="lg:pt-12 divide-y divide-border"
+        >
+          {FACTS.map((item, i) => (
+            <motion.div key={item.num}
+              initial={{ opacity: 0, x: 8 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.06 }}
+              className="py-4 flex gap-4 group"
+            >
+              <span className="mono text-[10px] text-primary/30 mt-0.5 shrink-0 w-5 group-hover:text-primary/55 transition-colors">
+                {item.num}
+              </span>
+              <div>
+                <p className="text-[13px] font-semibold text-text-main mb-1">{item.title}</p>
+                <p className="text-[13px] text-text-secondary leading-relaxed">{item.body}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);

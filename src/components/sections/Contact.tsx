@@ -1,208 +1,167 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../ui/SectionHeading';
-import { Mail, Code, Link, MessageCircle, Send,  Users
-   } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ArrowUpRight, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
-const CONTACT_LINKS = [
-  {
-    name: 'Email',
-    icon: <Mail className="w-5 h-5" />,
-    // href: 'mailto:contact@muhamadhabilputrawan@gmail.com',
-    desc: 'contact@muhamadhabilputrawan@gmail.com'
-  },
-  {
-    name: 'WhatsApp',
-    icon: <MessageCircle className="w-5 h-5" />,
-    href: 'https://wa.me/6285282251956',
-    desc: 'Let\'s chat'
-  },
-  {
-    name: 'GitHub',
-    icon: <Code className="w-5 h-5" />,
-    href: 'https://github.com/mhpcieo',
-    desc: 'View my code'
-  },
-    {
-    name: 'Instagram',
-    icon: <Users className="w-5 h-5" />,
-    href: 'https://www.instagram.com/habilpiyo?igsh=aHMwZ2ZqNDg1dmR2',
-    desc: '@habilpiyo'
-  },
+// ─────────────────────────────────────────────────────────────
+// SETUP: Untuk mengaktifkan pengiriman email:
+// 1. Buka https://web3forms.com
+// 2. Masukkan email kamu → klik "Create Access Key"
+// 3. Cek email → copy access key yang dikirim
+// 4. Ganti nilai ACCESS_KEY di bawah ini dengan key kamu
+// ─────────────────────────────────────────────────────────────
+const ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
 
-  {
-    name: 'LinkedIn',
-    icon: <Link className="w-5 h-5" />,
-    href: 'https://www.linkedin.com/in/muhamad-habil-putrawan-786987322/',
-    desc: 'Connect with me'
-  }
+const LINKS = [
+  { label: 'Email',     value: 'muhamadhabilputrawan@gmail.com', href: 'mailto:muhamadhabilputrawan@gmail.com' },
+  { label: 'WhatsApp',  value: '+62 852-8225-1956',              href: 'https://wa.me/6285282251956' },
+  { label: 'GitHub',    value: 'github.com/mhpcieo',             href: 'https://github.com/mhpcieo' },
+  { label: 'Instagram', value: '@habilpiyo',                     href: 'https://www.instagram.com/habilpiyo' },
+  { label: 'LinkedIn',  value: 'Muhamad Habil Putrawan',         href: 'https://www.linkedin.com/in/muhamad-habil-putrawan-786987322' },
 ];
 
+type Status = 'idle' | 'sending' | 'ok' | 'err';
+
 export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<Status>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
-    
+    setStatus('sending');
     try {
-      // GANTI 'YOUR_ACCESS_KEY_HERE' DENGAN ACCESS KEY DARI WEB3FORMS NANTI
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          access_key: 'YOUR_ACCESS_KEY_HERE',
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        })
+          access_key: ACCESS_KEY,
+          subject: `Portfolio contact from ${form.name}`,
+          from_name: form.name,
+          ...form,
+        }),
       });
-      
-      const result = await response.json();
-      if (result.success) {
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-        setTimeout(() => setStatus('idle'), 5000); // Reset status after 5s
+      const json = await res.json();
+      if (json.success) {
+        setStatus('ok');
+        setForm({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 6000);
       } else {
-        setStatus('error');
+        setStatus('err');
+        setTimeout(() => setStatus('idle'), 4000);
       }
-    } catch (error) {
-      setStatus('error');
+    } catch {
+      setStatus('err');
+      setTimeout(() => setStatus('idle'), 4000);
     }
   };
 
   return (
-    <section id="contact" className="py-24 relative z-10">
-      {/* Background glow specific to contact section */}
-      <div className="absolute inset-0 top-1/2 bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+    <section id="contact" className="py-24 relative z-10 border-t border-border">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-24">
 
-      <div className="max-w-5xl mx-auto px-6">
-        <SectionHeading 
-          title="Let's Connect" 
-          subtitle="Tertarik untuk berkolaborasi atau memiliki pertanyaan? Jangan ragu untuk menghubungi saya."
-        />
+          {/* Left */}
+          <div>
+            <SectionHeading
+              label="05 — Contact"
+              title="Let's talk"
+              subtitle="Open to internship opportunities, collaborations, or just a conversation."
+            />
 
-        <div className="mt-16 grid lg:grid-cols-5 gap-8 bg-transparent">
-          
-          {/* Contact Info Cards (Left side) */}
-          <div className="lg:col-span-2 flex flex-col gap-4">
-            {CONTACT_LINKS.map((link, idx) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="glass-card p-5 rounded-2xl flex items-center gap-4 hover:border-primary/50 group transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-text-secondary group-hover:bg-primary/20 group-hover:text-primary transition-colors">
-                  {link.icon}
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-text-main">{link.name}</h4>
-                  <p className="text-xs text-text-secondary mt-0.5">{link.desc}</p>
-                </div>
-              </motion.a>
-            ))}
+            <motion.div
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+              viewport={{ once: true }} transition={{ duration: 0.35, delay: 0.12 }}
+              className="mt-9 divide-y divide-border"
+            >
+              {LINKS.map((l) => (
+                <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-between py-3.5 group">
+                  <div>
+                    <p className="mono text-[10px] text-text-muted mb-0.5 uppercase tracking-wider">{l.label}</p>
+                    <p className="text-[13px] text-text-main group-hover:text-primary transition-colors duration-100">{l.value}</p>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-text-muted group-hover:text-primary transition-colors duration-100 shrink-0" />
+                </a>
+              ))}
+            </motion.div>
           </div>
 
-          {/* Contact Form (Right side) */}
+          {/* Right — form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3 glass-card p-8 rounded-3xl relative overflow-hidden"
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-30px' }} transition={{ duration: 0.38, delay: 0.08 }}
+            className="lg:pt-12"
           >
-            {/* Form decorative glow */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px]" />
-            
-            <h3 className="text-2xl font-bold mb-6 text-text-main relative z-10">Send a Message</h3>
-            
-            <form className="relative z-10 space-y-5" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-5">
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-text-secondary uppercase tracking-wider">Name</label>
-                  <input 
-                    type="text" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="John Doe" 
-                    className="w-full bg-bg-main/50 border border-border-soft rounded-xl px-4 py-3 text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-medium text-text-secondary uppercase tracking-wider">Email</label>
-                  <input 
-                    type="email" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="john@example.com" 
-                    className="w-full bg-bg-main/50 border border-border-soft rounded-xl px-4 py-3 text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-text-secondary uppercase tracking-wider">Subject</label>
-                <input 
-                  type="text" 
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  placeholder="Internship Opportunity" 
-                  className="w-full bg-bg-main/50 border border-border-soft rounded-xl px-4 py-3 text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs font-medium text-text-secondary uppercase tracking-wider">Message</label>
-                <textarea 
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  placeholder="Hi Habil, we are looking for..." 
-                  className="w-full bg-bg-main/50 border border-border-soft rounded-xl px-4 py-3 text-text-main placeholder:text-text-secondary/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
-                ></textarea>
-              </div>
-
-              <Button 
-                type="submit" 
-                variant="primary" 
-                icon={status === 'submitting' ? undefined : <Send className="w-4 h-4" />} 
-                className={`w-full ${status === 'success' ? 'bg-green-500 hover:bg-green-600 text-white border-green-500' : ''} ${status === 'error' ? 'bg-red-500 hover:bg-red-600 text-white border-red-500' : ''}`}
-                disabled={status === 'submitting'}
+            {/* Success banner */}
+            {status === 'ok' && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-emerald-500/25 bg-emerald-500/8 rounded text-emerald-400 text-[13px]"
               >
-                {status === 'submitting' ? 'Sending...' : 
-                 status === 'success' ? 'Message Sent!' : 
-                 status === 'error' ? 'Failed to Send. Try Again' : 
-                 'Send Message'}
-              </Button>
+                <CheckCircle className="w-4 h-4 shrink-0" />
+                Message sent — I'll get back to you soon.
+              </motion.div>
+            )}
+
+            {/* Error banner */}
+            {status === 'err' && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-red-500/25 bg-red-500/8 rounded text-red-400 text-[13px]"
+              >
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                Something went wrong. Try again or email me directly.
+              </motion.div>
+            )}
+
+            <form onSubmit={onSubmit} className="space-y-4">
+              {/* Name + Email row */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="f-name" className="block mono text-[10px] text-text-secondary mb-1.5 uppercase tracking-wider">
+                    Name
+                  </label>
+                  <input id="f-name" name="name" type="text" required
+                    value={form.name} onChange={onChange}
+                    placeholder="Your name" className="field" />
+                </div>
+                <div>
+                  <label htmlFor="f-email" className="block mono text-[10px] text-text-secondary mb-1.5 uppercase tracking-wider">
+                    Email
+                  </label>
+                  <input id="f-email" name="email" type="email" required
+                    value={form.email} onChange={onChange}
+                    placeholder="your@email.com" className="field" />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="f-msg" className="block mono text-[10px] text-text-secondary mb-1.5 uppercase tracking-wider">
+                  Message
+                </label>
+                <textarea id="f-msg" name="message" required rows={5}
+                  value={form.message} onChange={onChange}
+                  placeholder="What's on your mind?"
+                  className="field resize-none" />
+              </div>
+
+              <button type="submit" disabled={status === 'sending'}
+                className="w-full flex items-center justify-center gap-2 py-2.5 bg-primary text-stone-900 text-[13px] font-semibold hover:bg-primary-soft transition-colors duration-100 disabled:opacity-50 disabled:cursor-not-allowed rounded-sm">
+                {status === 'sending' ? (
+                  <>
+                    <span className="w-3.5 h-3.5 border-2 border-stone-900/30 border-t-stone-900 rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send message
+                    <Send className="w-3.5 h-3.5" />
+                  </>
+                )}
+              </button>
             </form>
           </motion.div>
 

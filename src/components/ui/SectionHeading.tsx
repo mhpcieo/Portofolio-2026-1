@@ -1,33 +1,24 @@
 import { motion } from 'framer-motion';
 
 interface SectionHeadingProps {
+  label: string;
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center';
 }
 
-export const SectionHeading: React.FC<SectionHeadingProps> = ({ 
-  title, 
-  subtitle, 
-  align = 'center' 
-}) => {
-  return (
-    <div className={`mb-16 ${align === 'center' ? 'text-center' : 'text-left'}`}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5 }}
-      >
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">
-          <span className="text-gradient">{title}</span>
-        </h2>
-        {subtitle && (
-          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-            {subtitle}
-          </p>
-        )}
-      </motion.div>
-    </div>
-  );
-};
+export const SectionHeading: React.FC<SectionHeadingProps> = ({ label, title, subtitle }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-50px' }}
+    transition={{ duration: 0.38 }}
+  >
+    <p className="mono text-[10px] text-primary/55 tracking-[0.22em] uppercase mb-2.5">{label}</p>
+    <h2 className="text-[1.85rem] md:text-[2.2rem] font-bold text-text-main tracking-tight leading-tight">
+      {title}
+    </h2>
+    {subtitle && (
+      <p className="mt-2.5 text-[13px] text-text-secondary leading-relaxed max-w-sm">{subtitle}</p>
+    )}
+  </motion.div>
+);

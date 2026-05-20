@@ -1,144 +1,97 @@
 import { motion } from 'framer-motion';
-import { Code } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { SectionHeading } from '../ui/SectionHeading';
 
-// IMPORT IMAGE
 import basketCourtImg from '../../assets/loan_ticket.png';
 import ticketAppImg from '../../assets/ticket.png';
 import hurbenImg from '../../assets/hurben.png';
 
 const PROJECTS = [
   {
-    title: 'Basket Court Booking Mobile App',
-    desc: 'A mobile application designed for booking and managing basketball court rentals with a modern and user-friendly interface.',
-    tech: ['Flutter'],
-    features: ['UI Slicing'],
+    index: '01',
+    title: 'Basket Court Booking',
+    type: 'Mobile App',
+    year: '2024',
+    desc: 'Flutter app for booking basketball court rentals. Clean UI slicing, smooth booking flow, navigation that feels natural.',
+    tech: ['Flutter', 'Dart'],
     github: 'https://github.com/mhpcieo/Slicing_fieldloan.git',
-    image: basketCourtImg
+    image: basketCourtImg,
   },
   {
+    index: '02',
     title: 'Buy Ticket App',
-    desc: 'A ticket management system featuring an interactive admin dashboard, real-time monitoring, and automated reporting functionality.',
-    tech: ['Flutter'],
-    features: ['Responsive UI', 'Dashboard Interface'],
+    type: 'Mobile App',
+    year: '2024',
+    desc: 'Ticket management app with an admin dashboard. Responsive layout, clear data display — built to make sense at a glance.',
+    tech: ['Flutter', 'Dart'],
     github: 'https://github.com/mhpcieo/slicingtiket.git',
-    image: ticketAppImg
+    image: ticketAppImg,
   },
   {
-    title: 'Hurben',
-    desc: 'A web-based platform for purchasing amusement park and attraction tickets with a clean and intuitive user experience.',
-    tech: ['Laravel', 'MySQL'],
-    features: ['Auth JWT', 'Error Handling', 'Validation Data'],
+    index: '03',
+    title: 'Hurben Rekreasi',
+    type: 'Web Platform',
+    year: '2024',
+    desc: 'Web platform for purchasing amusement park tickets. Laravel + MySQL backend with JWT auth, input validation, error handling.',
+    tech: ['Laravel', 'MySQL', 'PHP'],
     github: 'https://github.com/mhpcieo/Hurbenrekreasi.git',
-    image: hurbenImg
-  }
+    image: hurbenImg,
+  },
 ];
 
-export const Projects = () => {
-  return (
-    <section id="projects" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeading
-          title="Featured Projects"
-          subtitle="Selected projects that reflect my understanding of clean code and software architecture."
-        />
+export const Projects = () => (
+  <section id="projects" className="py-24 relative z-10 border-t border-border">
+    <div className="max-w-6xl mx-auto px-6">
+      <SectionHeading
+        label="03 — Projects"
+        title="Things I've built"
+        subtitle="Three projects, each one a different problem to solve."
+      />
 
-        <div className="mt-20 space-y-32">
-          {PROJECTS.map((project, idx) => {
-            const isEven = idx % 2 === 0;
-
-            return (
-              <div
-                key={idx}
-                className={`flex flex-col ${
-                  isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } gap-12 items-center`}
-              >
-                
-                {/* Project Image */}
-                <motion.div
-                  initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.6 }}
-                  className="w-full lg:w-1/2 rounded-3xl overflow-hidden glass-card relative group bg-white/5"
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-0 bg-transparent" />
-                </motion.div>
-
-                {/* Project Details */}
-                <motion.div
-                  initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="w-full lg:w-1/2 flex flex-col items-start"
-                >
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="text-xs font-mono px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-3xl font-bold text-text-main mb-4">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-text-secondary text-lg leading-relaxed mb-6">
-                    {project.desc}
-                  </p>
-
-                  {/* Features */}
-                  <div className="mb-8 w-full">
-                    <h4 className="text-sm font-semibold text-text-main mb-3 uppercase tracking-wider">
-                      Key Features
-                    </h4>
-
-                    <ul className="grid grid-cols-2 gap-2">
-                      {project.features.map((feat) => (
-                        <li
-                          key={feat}
-                          className="flex items-center gap-2 text-sm text-text-secondary"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-                          {feat}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Github Button */}
-                  <div className="flex items-center gap-4">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary text-white font-medium transition-all duration-300 hover:scale-105 hover:opacity-90"
-                    >
-                      <Code className="w-4 h-4" />
-                      Source Code
-                    </a>
-                  </div>
-                </motion.div>
+      <div className="mt-14 space-y-14">
+        {PROJECTS.map((p, idx) => (
+          <motion.div key={p.index}
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.4, delay: idx * 0.04 }}
+            className="grid lg:grid-cols-[1fr_400px] gap-7 lg:gap-10 items-start group"
+          >
+            {/* Text */}
+            <div className="flex flex-col gap-3.5">
+              <div className="flex items-center gap-2.5">
+                <span className="mono text-[10px] text-text-muted">{p.index}</span>
+                <span className="h-px w-3 bg-border" />
+                <span className="mono text-[10px] text-text-muted uppercase tracking-wider">{p.type}</span>
+                <span className="mono text-[10px] text-text-muted ml-auto">{p.year}</span>
               </div>
-            );
-          })}
-        </div>
+
+              <h3 className="text-[1.1rem] font-semibold text-text-main group-hover:text-primary transition-colors duration-150">
+                {p.title}
+              </h3>
+
+              <p className="text-[13px] text-text-secondary leading-relaxed">{p.desc}</p>
+
+              <div className="flex flex-wrap gap-1.5">
+                {p.tech.map((t) => (
+                  <span key={t} className="mono text-[10px] px-2 py-0.5 border border-border text-text-secondary rounded-sm">
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <a href={p.github} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 mono text-[11px] text-text-secondary hover:text-primary transition-colors duration-100 w-fit mt-0.5">
+                View source <ArrowUpRight className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* Image */}
+            <div className="border border-border rounded overflow-hidden bg-bg-secondary">
+              <img src={p.image} alt={p.title}
+                className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);

@@ -1,150 +1,144 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Mail, Terminal, Code2 } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 
-export const Hero = () => {
-  return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-primary-soft/10 rounded-full blur-[120px] pointer-events-none" />
-      
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)] pointer-events-none" />
+const STACK = ['Flutter', 'Laravel', 'Express.js', 'PostgreSQL'];
 
-      <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Content */}
-          <div className="flex flex-col items-start gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Badge pulse icon={<Terminal className="w-4 h-4" />}>
-                Available for Internship
-              </Badge>
-            </motion.div>
+const CODE_LINES: { tokens: { t: string; v: string }[]; cursor?: boolean }[] = [
+  { tokens: [{ t: 'kw', v: 'const ' }, { t: 'var', v: 'dev' }, { t: 'op', v: ' = {' }] },
+  { tokens: [{ t: 'sp', v: '  ' }, { t: 'key', v: 'name' }, { t: 'op', v: ': ' }, { t: 'str', v: '"Habil Putrawan"' }, { t: 'op', v: ',' }] },
+  { tokens: [{ t: 'sp', v: '  ' }, { t: 'key', v: 'role' }, { t: 'op', v: ': ' }, { t: 'str', v: '"Mobile Developer"' }, { t: 'op', v: ',' }] },
+  { tokens: [{ t: 'sp', v: '  ' }, { t: 'key', v: 'stack' }, { t: 'op', v: ': [' }, { t: 'str', v: '"Flutter"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"Laravel"' }, { t: 'op', v: '],' }] },
+  { tokens: [{ t: 'sp', v: '  ' }, { t: 'key', v: 'available' }, { t: 'op', v: ': ' }, { t: 'bool', v: 'true' }] },
+  { tokens: [{ t: 'op', v: '};' }] },
+  { tokens: [] },
+  { tokens: [{ t: 'fn', v: 'dev' }, { t: 'op', v: '.' }, { t: 'method', v: 'build' }, { t: 'op', v: '(' }, { t: 'str', v: '"your next app"' }, { t: 'op', v: ')' }], cursor: true },
+];
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-4">
-                Hi, I'm <span className="text-gradient">Habil</span>
-                <br />
-                <span className="text-4xl md:text-5xl text-text-secondary mt-2 block">
-                  Mobile App Developer
-                </span>
-              </h1>
-              <p className="text-xl text-primary font-medium flex items-center gap-2">
-                <Code2 className="w-5 h-5" />
-                Flutter Developer • Backend Developer
-              </p>
-            </motion.div>
+const TC: Record<string, string> = {
+  kw: 'text-amber-400', var: 'text-text-main', op: 'text-stone-600',
+  sp: '', key: 'text-sky-300', str: 'text-emerald-400',
+  bool: 'text-orange-400', fn: 'text-text-main', method: 'text-amber-300',
+};
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-text-secondary text-lg leading-relaxed max-w-xl"
-            >
-              <strong className="text-text-main font-medium block mb-2">
-                "Building clean, scalable, and meaningful digital experiences."
-              </strong>
-              Saya adalah siswa RPL yang fokus pada pengembangan aplikasi modern menggunakan Flutter, Laravel, Express.js, dan PostgreSQL. Saya suka membangun tampilan yang clean, performa yang optimal, dan backend yang terstruktur.
-            </motion.p>
+export const Hero = () => (
+  <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-14">
+    {/* Ambient */}
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[350px] pointer-events-none"
+      style={{ background: 'radial-gradient(ellipse at top, rgba(232,160,32,0.055) 0%, transparent 65%)' }} />
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap gap-4 mt-4"
-            >
-              <Button onClick={() => window.location.href = '#projects'} icon={<ArrowRight />}>
-                View Projects
-              </Button>
-              <Button variant="outline" onClick={() => window.location.href = '#contact'} icon={<Mail />}>
-                Contact Me
-              </Button>
-            </motion.div>
-          </div>
+    <div className="max-w-6xl mx-auto px-6 w-full relative z-10 py-20">
+      <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          {/* Right Visual (Asymmetrical Modern Showcase) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-            className="relative lg:h-[600px] flex items-center justify-center lg:justify-end"
+        {/* Left */}
+        <div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="mb-6">
+            <Badge pulse>Open to internship</Badge>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.07 }}
+            className="text-[clamp(2.4rem,6.5vw,4.5rem)] font-bold leading-none tracking-tight"
           >
-            <div className="relative w-full max-w-md aspect-[4/5] glass-card rounded-2xl p-6 overflow-hidden border border-border-soft/50 shadow-2xl group">
-              {/* Abstract decorative elements inside the card */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-bl-full blur-2xl transition-all group-hover:bg-primary/30" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary-soft/20 rounded-tr-full blur-2xl transition-all group-hover:bg-primary-soft/30" />
-              
-              <div className="relative z-10 h-full flex flex-col justify-between">
-                <div className="flex justify-between items-center mb-8">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                  </div>
-                  <span className="text-xs text-text-secondary font-mono">portfolio.tsx</span>
-                </div>
-                
-                <div className="space-y-4 font-mono text-sm">
-                  <p className="text-primary-soft">const <span className="text-primary">developer</span> = {'{'}</p>
-                  <p className="pl-6 text-text-secondary">name: <span className="text-green-400">'Habil'</span>,</p>
-                  <p className="pl-6 text-text-secondary">role: <span className="text-green-400">'Mobile App Developer'</span>,</p>
-                  <p className="pl-6 text-text-secondary">passion: <span className="text-green-400">'Clean Code'</span>,</p>
-                  <p className="pl-6 text-text-secondary">status: <span className="text-green-400">'Ready to work'</span></p>
-                  <p className="text-primary-soft">{'}'};</p>
-                  <br/>
-                  <p className="text-text-secondary"><span className="text-primary-soft">developer</span>.build(awesomeApp);</p>
-                </div>
-                
-                <div className="mt-auto pt-6 border-t border-border-soft/50 flex justify-between items-center">
-                  <span className="text-xs text-text-secondary">System Status: Online</span>
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                </div>
-              </div>
-            </div>
-            
-            {/* Floating Badges */}
-            <motion.div 
-              animate={{ y: [0, -10, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="absolute top-10 -left-6 lg:left-10 glass-card px-4 py-3 rounded-xl flex items-center gap-3 shadow-xl"
-            >
-              <div className="w-8 h-8 rounded-full bg-[#02569B]/20 flex items-center justify-center">
-                <span className="text-[#02569B] font-bold text-xs">FL</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold text-text-main">Flutter</span>
-                <span className="text-xs text-text-secondary">Mobile Dev</span>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              animate={{ y: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-              className="absolute bottom-20 -right-4 glass-card px-4 py-3 rounded-xl flex items-center gap-3 shadow-xl"
-            >
-              <div className="w-8 h-8 rounded-full bg-[#FF2D20]/20 flex items-center justify-center">
-                <span className="text-[#FF2D20] font-bold text-xs">LV</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold text-text-main">Laravel</span>
-                <span className="text-xs text-text-secondary">Backend Dev</span>
-              </div>
-            </motion.div>
+            <span className="text-text-main">Muhamad Habil</span>
+            <br />
+            <span className="text-gradient">Putrawan</span>
+          </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.16 }}
+            className="mt-5 text-[13.5px] text-text-secondary leading-[1.8] max-w-[380px]"
+          >
+            Software Engineering student. I build mobile apps with Flutter and
+            backends with Laravel — focused on clean code and things that actually
+            work in production.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.25 }}
+            className="mt-8 flex flex-wrap items-center gap-3"
+          >
+            <a href="#projects"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-stone-900 text-[13px] font-semibold hover:bg-primary-soft transition-colors duration-100 rounded-sm">
+              See my work <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+            <a href="#contact"
+              className="inline-flex items-center gap-1.5 text-[13px] text-text-secondary hover:text-text-main transition-colors duration-100">
+              Get in touch <ArrowUpRight className="w-3.5 h-3.5 opacity-50" />
+            </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ duration: 0.35, delay: 0.38 }}
+            className="mt-12 flex items-center gap-3 flex-wrap"
+          >
+            <span className="mono text-[10px] text-text-muted uppercase tracking-[0.2em]">Stack</span>
+            <span className="w-5 h-px bg-border" />
+            {STACK.map((s, i) => (
+              <span key={s} className="mono text-[11px] text-text-secondary">
+                {s}{i < STACK.length - 1 && <span className="text-text-muted ml-2.5">·</span>}
+              </span>
+            ))}
           </motion.div>
         </div>
+
+        {/* Right — code editor box */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.28 }}
+          className="hidden lg:block"
+        >
+          <div className="rounded-lg overflow-hidden border border-border" style={{ background: '#0f0d0a' }}>
+            {/* Titlebar */}
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-border" style={{ background: '#141109' }}>
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-stone-700/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-stone-700/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-stone-700/80" />
+              </div>
+              <span className="mono text-[11px] text-stone-600">developer.ts</span>
+              <span className="mono text-[10px] text-stone-700">TS</span>
+            </div>
+
+            {/* Code */}
+            <div className="px-4 py-4 mono text-[12.5px] leading-[1.85] select-none">
+              {CODE_LINES.map((line, li) => (
+                <div key={li} className="flex gap-4">
+                  <span className="text-stone-700 text-[10px] w-3.5 shrink-0 text-right mt-[2px]">{li + 1}</span>
+                  <span>
+                    {line.tokens.map((tok, ti) => (
+                      <span key={ti} className={TC[tok.t] ?? 'text-text-secondary'}>{tok.v}</span>
+                    ))}
+                    {line.cursor && (
+                      <motion.span
+                        animate={{ opacity: [1, 0] }}
+                        transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
+                        className="inline-block w-[2px] h-[13px] bg-primary align-middle ml-px"
+                      />
+                    )}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Statusbar */}
+            <div className="flex items-center justify-between px-4 py-2 border-t border-border" style={{ background: '#141109' }}>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span className="mono text-[10px] text-stone-600">ready</span>
+              </div>
+              <span className="mono text-[10px] text-stone-700">UTF-8</span>
+            </div>
+          </div>
+        </motion.div>
+
       </div>
-    </section>
-  );
-};
+    </div>
+
+    <div className="absolute bottom-0 inset-x-0 divider-warm" />
+  </section>
+);

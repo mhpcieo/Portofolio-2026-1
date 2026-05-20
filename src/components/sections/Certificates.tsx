@@ -1,9 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../ui/SectionHeading';
-import { Award, ExternalLink } from 'lucide-react';
-import { Button } from '../ui/Button';
 
-// Asset Imports
 import certYlc from '../../assets/ylc.jpg';
 import certOsis from '../../assets/sertifikat_osis_sharing.jpg';
 import certChasity from '../../assets/chasity.jpg';
@@ -13,117 +10,50 @@ import certGdg from '../../assets/mobile_gdg.jpg';
 import certDicodingWeb from '../../assets/web_dasar.jpg';
 import certDicodingJs from '../../assets/pemrograman_java.jpg';
 
-const CERTIFICATES = [
-  {
-    title: 'Youth Leadership Camp 3.0',
-    issuer: 'Forum OSIS SMK Jawa Barat',
-    date: '2025',
-    imagePlaceholder: 'bg-gradient-to-br from-indigo-500/20 to-purple-600/20',
-    image: certYlc
-  },
-  {
-    title: 'Upgrading OSIS Nasional 2026',
-    issuer: 'Ibnu Sina Foundation',
-    date: '2026',
-    imagePlaceholder: 'bg-gradient-to-br from-sky-500/20 to-blue-600/20',
-    image: certOsis
-  },
-  {
-    title: 'Certificate of Appreciation',
-    issuer: 'Chasity Earth',
-    date: '2025',
-    imagePlaceholder: 'bg-gradient-to-br from-emerald-500/20 to-green-600/20',
-    image: certChasity
-  },
-  {
-    title: 'Duta Pembicara Muda Indonesia',
-    issuer: 'DPMI Batch 3',
-    date: '2026',
-    imagePlaceholder: 'bg-gradient-to-br from-amber-500/20 to-yellow-600/20',
-    image: certDpmi
-  },
-  {
-    title: 'Keselamatan dan Kesehatan Kerja',
-    issuer: 'International Labour Organization',
-    date: '2024',
-    imagePlaceholder: 'bg-gradient-to-br from-rose-500/20 to-red-600/20',
-    image: certIlo
-  },
-  {
-    title: 'Let\'s Get Vibing (Build with AI)',
-    issuer: 'Google Developer Group Bogor',
-    date: '2026',
-    imagePlaceholder: 'bg-gradient-to-br from-teal-500/20 to-emerald-600/20',
-    image: certGdg
-  },
-  {
-    title: 'Belajar Dasar Pemrograman Web',
-    issuer: 'Dicoding',
-    date: '2024',
-    imagePlaceholder: 'bg-gradient-to-br from-fuchsia-500/20 to-pink-600/20',
-    image: certDicodingWeb
-  },
-  {
-    title: 'Belajar Dasar Pemrograman JavaScript',
-    issuer: 'Dicoding',
-    date: '2025',
-    imagePlaceholder: 'bg-gradient-to-br from-orange-500/20 to-amber-600/20',
-    image: certDicodingJs
-  }
+const CERTS = [
+  { title: 'Youth Leadership Camp 3.0', issuer: 'Forum OSIS SMK Jawa Barat', year: '2025', image: certYlc },
+  { title: 'Upgrading OSIS National 2026', issuer: 'Ibnu Sina Foundation', year: '2026', image: certOsis },
+  { title: 'Certificate of Appreciation', issuer: 'Chasity Earth', year: '2025', image: certChasity },
+  { title: 'Young Speaker Ambassador', issuer: 'DPMI Batch 3', year: '2026', image: certDpmi },
+  { title: 'Occupational Health & Safety', issuer: 'International Labour Organization', year: '2024', image: certIlo },
+  { title: "Let's Get Vibing — Build with AI", issuer: 'Google Developer Group Bogor', year: '2026', image: certGdg },
+  { title: 'Web Development Fundamentals', issuer: 'Dicoding', year: '2024', image: certDicodingWeb },
+  { title: 'JavaScript Programming Basics', issuer: 'Dicoding', year: '2025', image: certDicodingJs },
 ];
 
-export const Certificates = () => {
-  return (
-    <section id="certificates" className="py-24 relative z-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeading 
-          title="Licenses & Certifications" 
-          subtitle="Beberapa pencapaian dan sertifikat yang validasi keterampilan teknis saya di bidang pengembangan aplikasi mobile."
+export const Certificates = () => (
+  <section id="certificates" className="py-24 relative z-10 border-t border-border">
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <SectionHeading
+          label="04 — Certificates"
+          title="Credentials"
+          subtitle="Courses, workshops, and events I've been part of."
         />
-
-        <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {CERTIFICATES.map((cert, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="glass-card rounded-2xl overflow-hidden group flex flex-col"
-            >
-              {/* Image Container */}
-              <div className={`w-full aspect-[4/3] ${cert.image ? 'bg-bg-secondary' : cert.imagePlaceholder} relative overflow-hidden flex items-center justify-center`}>
-                {cert.image ? (
-                  <img src={cert.image} alt={cert.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                ) : (
-                  <Award className="w-12 h-12 text-white/30 group-hover:scale-110 transition-transform duration-500" />
-                )}
-                {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-bg-main/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Button variant="outline" className="scale-90" icon={<ExternalLink className="w-4 h-4" />}>
-                    Lihat
-                  </Button>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-5 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-3">
-                  <span className="text-xs font-mono text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20">
-                    {cert.date}
-                  </span>
-                </div>
-                <h4 className="text-lg font-bold text-text-main mb-1 group-hover:text-primary transition-colors line-clamp-2">
-                  {cert.title}
-                </h4>
-                <p className="text-sm text-text-secondary mt-auto">
-                  {cert.issuer}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <span className="mono text-[11px] text-text-muted">{CERTS.length} total</span>
       </div>
-    </section>
-  );
-};
+
+      <div className="columns-2 md:columns-3 lg:columns-4 gap-2.5">
+        {CERTS.map((cert, idx) => (
+          <motion.div key={cert.title}
+            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }} transition={{ duration: 0.3, delay: idx * 0.035 }}
+            className="break-inside-avoid mb-2.5 group"
+          >
+            <div className="border border-border bg-bg-card hover:border-primary/20 transition-colors duration-150 rounded overflow-hidden">
+              <div className="overflow-hidden">
+                <img src={cert.image} alt={cert.title}
+                  className="w-full h-auto object-cover group-hover:scale-[1.025] transition-transform duration-500" />
+              </div>
+              <div className="px-2.5 py-2">
+                <p className="mono text-[9px] text-primary/45 mb-0.5">{cert.year}</p>
+                <p className="text-[11px] font-medium text-text-main leading-snug line-clamp-2">{cert.title}</p>
+                <p className="mono text-[9px] text-text-muted mt-0.5 truncate">{cert.issuer}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
