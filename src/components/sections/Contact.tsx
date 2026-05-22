@@ -99,7 +99,7 @@ export const Contact = () => {
             {status === 'ok' && (
               <motion.div
                 initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-emerald-500/25 bg-emerald-500/8 rounded text-emerald-400 text-[13px]"
+                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-emerald-500/25 bg-emerald-500/8 rounded-sm text-emerald-400 text-[13px]"
               >
                 <CheckCircle className="w-4 h-4 shrink-0" />
                 Message sent — I'll get back to you soon.
@@ -110,7 +110,7 @@ export const Contact = () => {
             {status === 'err' && (
               <motion.div
                 initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-red-500/25 bg-red-500/8 rounded text-red-400 text-[13px]"
+                className="mb-5 flex items-center gap-2.5 px-3.5 py-3 border border-red-500/25 bg-red-500/8 rounded-sm text-red-400 text-[13px]"
               >
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 Something went wrong. Try again or email me directly.

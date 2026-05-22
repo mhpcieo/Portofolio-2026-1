@@ -92,7 +92,7 @@ export const Hero = () => (
           transition={{ duration: 0.5, delay: 0.28 }}
           className="hidden lg:block"
         >
-          <div className="rounded-lg overflow-hidden border border-border" style={{ background: '#0f0d0a' }}>
+          <div className="rounded-sm overflow-hidden border border-border" style={{ background: '#0f0d0a' }}>
             {/* Titlebar */}
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-border" style={{ background: '#141109' }}>
               <div className="flex items-center gap-1.5">

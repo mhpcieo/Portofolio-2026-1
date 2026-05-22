@@ -9,7 +9,7 @@ const FACTS = [
 ];
 
 export const About = () => (
-  <section id="about" className="py-24 relative z-10">
+  <section id="about" className="py-24 relative z-10 border-t border-border">
     <div className="max-w-6xl mx-auto px-6">
       <div className="grid lg:grid-cols-2 gap-14 lg:gap-24 items-start">
 
@@ -20,7 +20,7 @@ export const About = () => (
           <motion.div
             initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }} transition={{ duration: 0.38, delay: 0.08 }}
-            className="mt-7 space-y-3.5 text-[13.5px] text-text-secondary leading-[1.8]"
+            className="mt-7 space-y-3.5 text-[13px] text-text-secondary leading-[1.8]"
           >
             <p>
               I'm a Software Engineering (RPL) student in Indonesia. I got into programming

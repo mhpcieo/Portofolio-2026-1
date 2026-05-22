@@ -79,13 +79,13 @@ export const Projects = () => (
               </div>
 
               <a href={p.github} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mono text-[11px] text-text-secondary hover:text-primary transition-colors duration-100 w-fit mt-0.5">
-                View source <ArrowUpRight className="w-3 h-3" />
+                className="inline-flex items-center gap-2 mono text-[12px] px-4 py-2 bg-primary/10 border border-primary/30 text-primary hover:bg-primary hover:text-stone-900 transition-all duration-150 rounded-sm w-fit mt-1 font-medium">
+                View source <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </div>
 
             {/* Image */}
-            <div className="border border-border rounded overflow-hidden bg-bg-secondary">
+            <div className="border border-border rounded-sm overflow-hidden bg-bg-secondary">
               <img src={p.image} alt={p.title}
                 className="w-full h-auto object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
